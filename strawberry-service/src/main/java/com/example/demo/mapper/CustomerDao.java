@@ -1,6 +1,6 @@
 package com.example.demo.mapper;
 
-import com.example.demo.bean.Customer;
+import com.strawberry.bean.Customer;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
