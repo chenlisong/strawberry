@@ -10,8 +10,9 @@
 	<name>strawberry-parent</name>
 
 	<modules>
-		<module>strawberry-service</module>
 		<module>strawberry-api</module>
+		<module>strawberry-service</module>
+		<module>strawberry-test</module>
 	</modules>
 
 	<properties>
