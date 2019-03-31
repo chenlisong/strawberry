@@ -10,10 +10,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
+@RestController
 @EnableEurekaClient
+@EnableFeignClients("com.strawberry.service")
 @EnableDiscoveryClient
-@EnableFeignClients
 public class Application {
+
+    @RequestMapping("/hello")
+    public String hello(@RequestParam String name) {
+        System.out.println("computer-server1 execute name: " + name);
+        return "hello "+name+"，this is first messge";
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
