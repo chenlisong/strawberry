@@ -1,0 +1,5 @@
+#run strawberry-eureka
+FROM alpine-jdk8:1.0
+# 签名啦
+MAINTAINER ln "291382932@qq.com"
+COPY target/strawberry-eureka-1.0.0-SNAPSHOT.jar /opt/
