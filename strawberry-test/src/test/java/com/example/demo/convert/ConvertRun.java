@@ -1,5 +1,7 @@
 package com.example.demo.convert;
 
+import org.mockito.internal.util.reflection.Fields;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +18,27 @@ public class ConvertRun {
         httpStudent.setContent("hello world");
 
         System.out.println(convert(httpStudent, Student.class).getName());
+
+        System.out.println(convert(httpStudent, Student.class, new String[]{"content2"}, new Object[]{"hello world"}).getContent2());
+    }
+
+    public static <T> T convert(Object src, Class<T> targetClass, String[] fieldAppend, Object[] values) throws Exception{
+        T t = convert(src, targetClass);
+
+        Field[] fields = t.getClass().getDeclaredFields();
+        if(isNull(fields, fieldAppend, values)) {
+            return t;
+        }
+
+        List<String> fieldNames = entity(Arrays.asList(fields), "name", String.class);
+
+        for(int i=0; i<fieldAppend.length; i++) {
+            if(fieldNames.contains(fieldAppend[i])) {
+                String setMethodName = "set"+fieldAppend[i].substring(0,1).toUpperCase()+fieldAppend[i].substring(1);
+                targetClass.getDeclaredMethod(setMethodName, values[i].getClass()).invoke(t, values[i]);
+            }
+        }
+        return t;
     }
 
     public static <T> T convert(Object src, Class<T> targetClass) throws Exception{
@@ -28,7 +51,7 @@ public class ConvertRun {
         }
         List<String> srcFieldNames = entity(Arrays.asList(srcFields), "name", String.class);
 
-        for( Field field : fields) {
+        for(Field field : fields) {
             if(field.isAnnotationPresent(Convert.class)) {
                 String fieldName = field.getName();
                 String getMethodName = "get"+fieldName.substring(0,1).toUpperCase()+fieldName.substring(1);
