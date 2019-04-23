@@ -96,6 +96,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.0.4.RELEASE</version>
 				<configuration>
 					<!-- 程序的主启动类，即：用@SpringBootApplication注解，包含main方法的类 -->
 					<mainClass>com.example.demo.Application</mainClass>
